@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "dashboard";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col">
+            <div class="card m-auto" style="width: 18rem;text-align:center">
+                <div class="card-body">
+                    <h3 class="card-title"><i class="fas fa-bus"></i></h3>
+                    <p class="card-text">Manipuler Bus</p>
+                    <a href="@Url.Action("Index","Buses")" class="btn btn-outline-info">Modifier</a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card m-auto" style="width: 18rem;text-align:center">
+                <div class="card-body">
+                    <h3 class="card-title"><i class="fas fa-road"></i></h3>
+                    <p class="card-text">Manipuler Trajet</p>
+                    <a href="@Url.Action("Index","Trajets")" class="btn btn-outline-info">Modifier</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

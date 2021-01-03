@@ -1,0 +1,572 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="NavetteDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Abonnement">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="date_debut" Type="date" />
+          <Property Name="date_fin" Type="date" />
+          <Property Name="idClient" Type="int" />
+          <Property Name="idTrajet" Type="int" />
+          <Property Name="tarif" Type="float" />
+        </EntityType>
+        <EntityType Name="Administrateur">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Bus">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="typeDeVehicule" Type="varchar" MaxLength="250" />
+          <Property Name="description_" Type="varchar" MaxLength="250" />
+          <Property Name="idSociete" Type="int" />
+          <Property Name="idTrajet" Type="int" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Demande_Trajet">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="aller" Type="varchar" MaxLength="250" />
+          <Property Name="retour" Type="varchar" MaxLength="250" />
+          <Property Name="date_depart" Type="date" />
+          <Property Name="date_arriver" Type="date" />
+          <Property Name="idUtilisateur" Type="int" />
+        </EntityType>
+        <EntityType Name="Societe">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="RaisonSocial" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Trajet">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="aller" Type="varchar" MaxLength="250" />
+          <Property Name="retour" Type="varchar" MaxLength="250" />
+          <Property Name="date_depart" Type="date" />
+          <Property Name="date_arriver" Type="date" />
+          <Property Name="Heure_depart" Type="int" />
+          <Property Name="Heure_arriver" Type="int" />
+        </EntityType>
+        <EntityType Name="Utilisateur">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nom" Type="varchar" MaxLength="250" />
+          <Property Name="prenom" Type="varchar" MaxLength="250" />
+          <Property Name="email" Type="varchar" MaxLength="250" />
+          <Property Name="motDePasse" Type="varchar" MaxLength="250" />
+          <Property Name="telephone" Type="int" />
+          <Property Name="role_" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <Association Name="FK__Abonnemen__idCli__48CFD27E">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Abonnement" Type="Self.Abonnement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Abonnement">
+              <PropertyRef Name="idClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Abonnemen__idTra__49C3F6B7">
+          <End Role="Trajet" Type="Self.Trajet" Multiplicity="0..1" />
+          <End Role="Abonnement" Type="Self.Abonnement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Trajet">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Abonnement">
+              <PropertyRef Name="idTrajet" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Bus__idSociete__44FF419A">
+          <End Role="Societe" Type="Self.Societe" Multiplicity="0..1" />
+          <End Role="Bus" Type="Self.Bus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Societe">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Bus">
+              <PropertyRef Name="idSociete" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Bus__idTrajet__45F365D3">
+          <End Role="Trajet" Type="Self.Trajet" Multiplicity="0..1" />
+          <End Role="Bus" Type="Self.Bus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Trajet">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Bus">
+              <PropertyRef Name="idTrajet" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Demande_T__idUti__4AB81AF0">
+          <End Role="Utilisateur" Type="Self.Utilisateur" Multiplicity="0..1" />
+          <End Role="Demande_Trajet" Type="Self.Demande_Trajet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Utilisateur">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Demande_Trajet">
+              <PropertyRef Name="idUtilisateur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_utilisateur">
+          <End Role="Utilisateur" Type="Self.Utilisateur" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Utilisateur">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_utilisateur2">
+          <End Role="Utilisateur" Type="Self.Utilisateur" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Administrateur" Type="Self.Administrateur" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Utilisateur">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Administrateur">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_utilisateur3">
+          <End Role="Utilisateur" Type="Self.Utilisateur" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Societe" Type="Self.Societe" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Utilisateur">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Societe">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="NavetteDBModelStoreContainer">
+          <EntitySet Name="Abonnement" EntityType="Self.Abonnement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Administrateur" EntityType="Self.Administrateur" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bus" EntityType="Self.Bus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Demande_Trajet" EntityType="Self.Demande_Trajet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Societe" EntityType="Self.Societe" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Trajet" EntityType="Self.Trajet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Utilisateur" EntityType="Self.Utilisateur" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Abonnemen__idCli__48CFD27E" Association="Self.FK__Abonnemen__idCli__48CFD27E">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Abonnement" EntitySet="Abonnement" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Abonnemen__idTra__49C3F6B7" Association="Self.FK__Abonnemen__idTra__49C3F6B7">
+            <End Role="Trajet" EntitySet="Trajet" />
+            <End Role="Abonnement" EntitySet="Abonnement" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Bus__idSociete__44FF419A" Association="Self.FK__Bus__idSociete__44FF419A">
+            <End Role="Societe" EntitySet="Societe" />
+            <End Role="Bus" EntitySet="Bus" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Bus__idTrajet__45F365D3" Association="Self.FK__Bus__idTrajet__45F365D3">
+            <End Role="Trajet" EntitySet="Trajet" />
+            <End Role="Bus" EntitySet="Bus" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Demande_T__idUti__4AB81AF0" Association="Self.FK__Demande_T__idUti__4AB81AF0">
+            <End Role="Utilisateur" EntitySet="Utilisateur" />
+            <End Role="Demande_Trajet" EntitySet="Demande_Trajet" />
+          </AssociationSet>
+          <AssociationSet Name="fk_utilisateur" Association="Self.fk_utilisateur">
+            <End Role="Utilisateur" EntitySet="Utilisateur" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="fk_utilisateur2" Association="Self.fk_utilisateur2">
+            <End Role="Utilisateur" EntitySet="Utilisateur" />
+            <End Role="Administrateur" EntitySet="Administrateur" />
+          </AssociationSet>
+          <AssociationSet Name="fk_utilisateur3" Association="Self.fk_utilisateur3">
+            <End Role="Utilisateur" EntitySet="Utilisateur" />
+            <End Role="Societe" EntitySet="Societe" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="NavetteDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Abonnement">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="date_debut" Type="DateTime" Precision="0" />
+          <Property Name="date_fin" Type="DateTime" Precision="0" />
+          <Property Name="idClient" Type="Int32" />
+          <Property Name="idTrajet" Type="Int32" />
+          <Property Name="tarif" Type="Double" />
+          <NavigationProperty Name="Client" Relationship="Self.FK__Abonnemen__idCli__48CFD27E" FromRole="Abonnement" ToRole="Client" />
+          <NavigationProperty Name="Trajet" Relationship="Self.FK__Abonnemen__idTra__49C3F6B7" FromRole="Abonnement" ToRole="Trajet" />
+        </EntityType>
+        <EntityType Name="Administrateur">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Utilisateur" Relationship="Self.FK__Administrate__id__3B75D760" FromRole="Administrateur" ToRole="Utilisateur" />
+        </EntityType>
+        <EntityType Name="Bus">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="typeDeVehicule" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="description_" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="idSociete" Type="Int32" />
+          <Property Name="idTrajet" Type="Int32" />
+          <NavigationProperty Name="Societe" Relationship="Self.FK__Bus__idSociete__44FF419A" FromRole="Bus" ToRole="Societe" />
+          <NavigationProperty Name="Trajet" Relationship="Self.FK__Bus__idTrajet__45F365D3" FromRole="Bus" ToRole="Trajet" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Abonnements" Relationship="Self.FK__Abonnemen__idCli__48CFD27E" FromRole="Client" ToRole="Abonnement" />
+          <NavigationProperty Name="Utilisateur" Relationship="Self.FK__Client__id__38996AB5" FromRole="Client" ToRole="Utilisateur" />
+        </EntityType>
+        <EntityType Name="Demande_Trajet">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="aller" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="retour" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="date_depart" Type="DateTime" Precision="0" />
+          <Property Name="date_arriver" Type="DateTime" Precision="0" />
+          <Property Name="idUtilisateur" Type="Int32" />
+          <NavigationProperty Name="Utilisateur" Relationship="NavetteDBModel.FK__Demande_T__idUti__4AB81AF0" FromRole="Demande_Trajet" ToRole="Utilisateur" />
+        </EntityType>
+        <EntityType Name="Societe">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Buses" Relationship="Self.FK__Bus__idSociete__44FF419A" FromRole="Societe" ToRole="Bus" />
+          <NavigationProperty Name="Utilisateur" Relationship="Self.FK__Societe__id__3E52440B" FromRole="Societe" ToRole="Utilisateur" />
+          <Property Name="RaisonSocial" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Trajet">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="aller" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="retour" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="date_depart" Type="DateTime" Precision="0" />
+          <Property Name="date_arriver" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Abonnements" Relationship="Self.FK__Abonnemen__idTra__49C3F6B7" FromRole="Trajet" ToRole="Abonnement" />
+          <NavigationProperty Name="Buses" Relationship="Self.FK__Bus__idTrajet__45F365D3" FromRole="Trajet" ToRole="Bus" />
+          <Property Name="Heure_depart" Type="Int32" />
+          <Property Name="Heure_arriver" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Utilisateur">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="prenom" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="motDePasse" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="telephone" Type="Int32" />
+          <NavigationProperty Name="Administrateur" Relationship="Self.FK__Administrate__id__3B75D760" FromRole="Utilisateur" ToRole="Administrateur" />
+          <NavigationProperty Name="Client" Relationship="Self.FK__Client__id__38996AB5" FromRole="Utilisateur" ToRole="Client" />
+          <NavigationProperty Name="Societe" Relationship="Self.FK__Societe__id__3E52440B" FromRole="Utilisateur" ToRole="Societe" />
+          <Property Name="role_" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Demande_Trajet" Relationship="NavetteDBModel.FK__Demande_T__idUti__4AB81AF0" FromRole="Utilisateur" ToRole="Demande_Trajet" />
+        </EntityType>
+        <Association Name="FK__Abonnemen__idCli__48CFD27E">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Abonnement" Type="Self.Abonnement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Abonnement">
+              <PropertyRef Name="idClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Abonnemen__idTra__49C3F6B7">
+          <End Role="Trajet" Type="Self.Trajet" Multiplicity="0..1" />
+          <End Role="Abonnement" Type="Self.Abonnement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Trajet">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Abonnement">
+              <PropertyRef Name="idTrajet" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Administrate__id__3B75D760">
+          <End Role="Utilisateur" Type="Self.Utilisateur" Multiplicity="1" />
+          <End Role="Administrateur" Type="Self.Administrateur" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Utilisateur">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Administrateur">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Bus__idSociete__44FF419A">
+          <End Role="Societe" Type="Self.Societe" Multiplicity="0..1" />
+          <End Role="Bus" Type="Self.Bus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Societe">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Bus">
+              <PropertyRef Name="idSociete" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Bus__idTrajet__45F365D3">
+          <End Role="Trajet" Type="Self.Trajet" Multiplicity="0..1" />
+          <End Role="Bus" Type="Self.Bus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Trajet">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Bus">
+              <PropertyRef Name="idTrajet" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Client__id__38996AB5">
+          <End Role="Utilisateur" Type="Self.Utilisateur" Multiplicity="1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Utilisateur">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Societe__id__3E52440B">
+          <End Role="Utilisateur" Type="Self.Utilisateur" Multiplicity="1" />
+          <End Role="Societe" Type="Self.Societe" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Utilisateur">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Societe">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="NavetteDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Abonnements" EntityType="Self.Abonnement" />
+          <EntitySet Name="Administrateurs" EntityType="Self.Administrateur" />
+          <EntitySet Name="Buses" EntityType="Self.Bus" />
+          <EntitySet Name="Clients" EntityType="Self.Client" />
+          <EntitySet Name="Demande_Trajet" EntityType="Self.Demande_Trajet" />
+          <EntitySet Name="Societes" EntityType="Self.Societe" />
+          <EntitySet Name="Trajets" EntityType="Self.Trajet" />
+          <EntitySet Name="Utilisateurs" EntityType="Self.Utilisateur" />
+          <AssociationSet Name="FK__Abonnemen__idCli__48CFD27E" Association="Self.FK__Abonnemen__idCli__48CFD27E">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="Abonnement" EntitySet="Abonnements" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Abonnemen__idTra__49C3F6B7" Association="Self.FK__Abonnemen__idTra__49C3F6B7">
+            <End Role="Trajet" EntitySet="Trajets" />
+            <End Role="Abonnement" EntitySet="Abonnements" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Administrate__id__3B75D760" Association="Self.FK__Administrate__id__3B75D760">
+            <End Role="Utilisateur" EntitySet="Utilisateurs" />
+            <End Role="Administrateur" EntitySet="Administrateurs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Bus__idSociete__44FF419A" Association="Self.FK__Bus__idSociete__44FF419A">
+            <End Role="Societe" EntitySet="Societes" />
+            <End Role="Bus" EntitySet="Buses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Bus__idTrajet__45F365D3" Association="Self.FK__Bus__idTrajet__45F365D3">
+            <End Role="Trajet" EntitySet="Trajets" />
+            <End Role="Bus" EntitySet="Buses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Client__id__38996AB5" Association="Self.FK__Client__id__38996AB5">
+            <End Role="Utilisateur" EntitySet="Utilisateurs" />
+            <End Role="Client" EntitySet="Clients" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Societe__id__3E52440B" Association="Self.FK__Societe__id__3E52440B">
+            <End Role="Utilisateur" EntitySet="Utilisateurs" />
+            <End Role="Societe" EntitySet="Societes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Demande_T__idUti__4AB81AF0" Association="NavetteDBModel.FK__Demande_T__idUti__4AB81AF0">
+            <End Role="Utilisateur" EntitySet="Utilisateurs" />
+            <End Role="Demande_Trajet" EntitySet="Demande_Trajet" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK__Demande_T__idUti__4AB81AF0">
+          <End Type="NavetteDBModel.Utilisateur" Role="Utilisateur" Multiplicity="0..1" />
+          <End Type="NavetteDBModel.Demande_Trajet" Role="Demande_Trajet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Utilisateur">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Demande_Trajet">
+              <PropertyRef Name="idUtilisateur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="NavetteDBModelStoreContainer" CdmEntityContainer="NavetteDBEntities">
+          <EntitySetMapping Name="Abonnements">
+            <EntityTypeMapping TypeName="NavetteDBModel.Abonnement">
+              <MappingFragment StoreEntitySet="Abonnement">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="date_debut" ColumnName="date_debut" />
+                <ScalarProperty Name="date_fin" ColumnName="date_fin" />
+                <ScalarProperty Name="idClient" ColumnName="idClient" />
+                <ScalarProperty Name="idTrajet" ColumnName="idTrajet" />
+                <ScalarProperty Name="tarif" ColumnName="tarif" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Administrateurs">
+            <EntityTypeMapping TypeName="NavetteDBModel.Administrateur">
+              <MappingFragment StoreEntitySet="Administrateur">
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Buses">
+            <EntityTypeMapping TypeName="NavetteDBModel.Bus">
+              <MappingFragment StoreEntitySet="Bus">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="typeDeVehicule" ColumnName="typeDeVehicule" />
+                <ScalarProperty Name="description_" ColumnName="description_" />
+                <ScalarProperty Name="idSociete" ColumnName="idSociete" />
+                <ScalarProperty Name="idTrajet" ColumnName="idTrajet" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="NavetteDBModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Demande_Trajet">
+            <EntityTypeMapping TypeName="NavetteDBModel.Demande_Trajet">
+              <MappingFragment StoreEntitySet="Demande_Trajet">
+                <ScalarProperty Name="idUtilisateur" ColumnName="idUtilisateur" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="aller" ColumnName="aller" />
+                <ScalarProperty Name="retour" ColumnName="retour" />
+                <ScalarProperty Name="date_depart" ColumnName="date_depart" />
+                <ScalarProperty Name="date_arriver" ColumnName="date_arriver" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Societes">
+            <EntityTypeMapping TypeName="NavetteDBModel.Societe">
+              <MappingFragment StoreEntitySet="Societe">
+                <ScalarProperty Name="RaisonSocial" ColumnName="RaisonSocial" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Trajets">
+            <EntityTypeMapping TypeName="NavetteDBModel.Trajet">
+              <MappingFragment StoreEntitySet="Trajet">
+                <ScalarProperty Name="Heure_arriver" ColumnName="Heure_arriver" />
+                <ScalarProperty Name="Heure_depart" ColumnName="Heure_depart" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="aller" ColumnName="aller" />
+                <ScalarProperty Name="retour" ColumnName="retour" />
+                <ScalarProperty Name="date_depart" ColumnName="date_depart" />
+                <ScalarProperty Name="date_arriver" ColumnName="date_arriver" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Utilisateurs">
+            <EntityTypeMapping TypeName="NavetteDBModel.Utilisateur">
+              <MappingFragment StoreEntitySet="Utilisateur">
+                <ScalarProperty Name="role_" ColumnName="role_" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="prenom" ColumnName="prenom" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="motDePasse" ColumnName="motDePasse" />
+                <ScalarProperty Name="telephone" ColumnName="telephone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

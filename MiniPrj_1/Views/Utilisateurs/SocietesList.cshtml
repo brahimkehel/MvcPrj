@@ -1,0 +1,65 @@
+﻿@model IEnumerable<MiniPrj_1.Models.Utilisateur>
+@{
+    ViewBag.Title = "SocietesList";
+}
+
+<div class="container">
+    <h1>Liste des societes</h1>
+    <div class="row justify-content-center">
+        <table class="table table-responsive table-hover m-auto" style="max-height:400px">
+            <thead class="thead-dark">
+                <tr>
+                    <th></th>
+                    <th>Id Societe</th>
+                    <th>RaisonSociale</th>
+                    <th>Nom de Responsable</th>
+                    <th>Prenom de Responsable</th>
+                    <th>Email</th>
+                    <th>Mot de passe</th>
+                    <th>Telephone</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var c in Model)
+                {
+                <tr>
+                    <td><i class="fas fa-user-tie"></i></td>
+                    <td>@c.id</td>
+                    <td>@c.Societe.RaisonSocial</td>
+                    <td>@c.nom</td>
+                    <td>@c.prenom</td>
+                    <td>@c.email</td>
+                    <td>@c.motDePasse</td>
+                    <td>@c.telephone</td>
+                    <td><i style="cursor:pointer" class="fas fa-trash-alt" data-toggle="modal" data-target="#exampleModal"></i></td>
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Suppression</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    Etes-vous sur de supprimer ce client
+                                </div>
+                                @using (Html.BeginForm("Delete", "Utilisateurs", new { id = c.id }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <input type="submit" class="btn btn-danger" value="Supprimer" />
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

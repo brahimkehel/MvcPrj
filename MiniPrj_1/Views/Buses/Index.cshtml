@@ -1,0 +1,62 @@
+﻿@model IEnumerable<MiniPrj_1.Models.Bus>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<p>
+    <i class="fas fa-plus-circle"></i>
+    @Html.ActionLink("Ajouter Bus", "Create")
+</p>
+<table class="table table-hover table-responsive-lg">
+    <tr class="thead-dark">
+        <th>
+            @Html.DisplayNameFor(model => model.typeDeVehicule)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.description_)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Trajet.aller)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Trajet.retour)
+        </th> 
+        <th>
+            @Html.DisplayNameFor(model => model.Trajet.date_depart)
+        </th> 
+        <th>
+            @Html.DisplayNameFor(model => model.Trajet.date_arriver)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.typeDeVehicule)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.description_)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Trajet.aller)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Trajet.retour)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Trajet.date_depart)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Trajet.date_arriver)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+        @Html.ActionLink("Details", "Details", new { id = item.id }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.id })
+    </td>
+</tr>
+}
+
+</table>

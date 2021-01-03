@@ -1,0 +1,86 @@
+﻿@model MiniPrj_1.Models.Trajet
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Modifier Trajet</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.aller, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.aller, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.aller, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.retour, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.retour, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.retour, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.date_depart, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.date_depart, new { htmlAttributes = new {onchange= "dateFunction()", type = "datetime-local", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.date_depart, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.date_arriver, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.date_arriver, new { htmlAttributes = new { onchange = "dateFunction2()", type = "datetime-local", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.date_arriver, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Heure_depart, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <p name="Heure_depart" id="Heure_depart" class="form-text"></p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Heure_arriver, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <p name="Heure_arriver" id="Heure_arriver" class="form-text"></p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                <input type="submit" value="Save" class="btn btn-outline-info w-100" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script>
+    var date_depart = document.getElementById("date_depart");
+    var date_arriver = document.getElementById("date_arriver");
+    var d1 = document.getElementById("Heure_depart");
+    var d2 = document.getElementById("Heure_arriver");
+    function dateFunction(){
+        d1.innerHTML = date_depart.value.split('T')[1];
+    }
+    function dateFunction2() {
+        d2.innerHTML = date_arriver.value.split('T')[1];
+    }
+</script>

@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="NavetteDBModelStoreContainer" CdmEntityContainer="NavetteDBEntities">
+    <EntitySetMapping Name="Abonnements">
+      <EntityTypeMapping TypeName="NavetteDBModel.Abonnement">
+        <MappingFragment StoreEntitySet="Abonnement">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="date_debut" ColumnName="date_debut" />
+          <ScalarProperty Name="date_fin" ColumnName="date_fin" />
+          <ScalarProperty Name="idClient" ColumnName="idClient" />
+          <ScalarProperty Name="idTrajet" ColumnName="idTrajet" />
+          <ScalarProperty Name="tarif" ColumnName="tarif" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Administrateurs">
+      <EntityTypeMapping TypeName="NavetteDBModel.Administrateur">
+        <MappingFragment StoreEntitySet="Administrateur">
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Buses">
+      <EntityTypeMapping TypeName="NavetteDBModel.Bus">
+        <MappingFragment StoreEntitySet="Bus">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="typeDeVehicule" ColumnName="typeDeVehicule" />
+          <ScalarProperty Name="description_" ColumnName="description_" />
+          <ScalarProperty Name="idSociete" ColumnName="idSociete" />
+          <ScalarProperty Name="idTrajet" ColumnName="idTrajet" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Clients">
+      <EntityTypeMapping TypeName="NavetteDBModel.Client">
+        <MappingFragment StoreEntitySet="Client">
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Demande_Trajet">
+      <EntityTypeMapping TypeName="NavetteDBModel.Demande_Trajet">
+        <MappingFragment StoreEntitySet="Demande_Trajet">
+          <ScalarProperty Name="idUtilisateur" ColumnName="idUtilisateur" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="aller" ColumnName="aller" />
+          <ScalarProperty Name="retour" ColumnName="retour" />
+          <ScalarProperty Name="date_depart" ColumnName="date_depart" />
+          <ScalarProperty Name="date_arriver" ColumnName="date_arriver" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Societes">
+      <EntityTypeMapping TypeName="NavetteDBModel.Societe">
+        <MappingFragment StoreEntitySet="Societe">
+          <ScalarProperty Name="RaisonSocial" ColumnName="RaisonSocial" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Trajets">
+      <EntityTypeMapping TypeName="NavetteDBModel.Trajet">
+        <MappingFragment StoreEntitySet="Trajet">
+          <ScalarProperty Name="Heure_arriver" ColumnName="Heure_arriver" />
+          <ScalarProperty Name="Heure_depart" ColumnName="Heure_depart" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="aller" ColumnName="aller" />
+          <ScalarProperty Name="retour" ColumnName="retour" />
+          <ScalarProperty Name="date_depart" ColumnName="date_depart" />
+          <ScalarProperty Name="date_arriver" ColumnName="date_arriver" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Utilisateurs">
+      <EntityTypeMapping TypeName="NavetteDBModel.Utilisateur">
+        <MappingFragment StoreEntitySet="Utilisateur">
+          <ScalarProperty Name="role_" ColumnName="role_" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="prenom" ColumnName="prenom" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="motDePasse" ColumnName="motDePasse" />
+          <ScalarProperty Name="telephone" ColumnName="telephone" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

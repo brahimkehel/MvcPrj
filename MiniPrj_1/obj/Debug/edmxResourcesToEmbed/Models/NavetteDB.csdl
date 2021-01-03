@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MiniPrj_NavetteModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Abonnement">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="duree" Type="Int32" />
+    <Property Name="idClient" Type="Int32" />
+    <Property Name="Tarif" Type="Double" />
+    <Property Name="idTrajet" Type="Int32" />
+    <NavigationProperty Name="Client" Relationship="Self.FK__Abonnemen__idCli__2B3F6F97" FromRole="Abonnement" ToRole="Client" />
+    <NavigationProperty Name="Trajet" Relationship="Self.FK__Abonnemen__idTra__2C3393D0" FromRole="Abonnement" ToRole="Trajet" />
+  </EntityType>
+  <EntityType Name="Bus">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="typeDeVehicule" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Trajets" Relationship="Self.FK__Trajet__idBus__286302EC" FromRole="Bus" ToRole="Trajet" />
+  </EntityType>
+  <EntityType Name="Client">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="nom" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="prenom" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="motDePasse" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="telephone" Type="Int32" />
+    <NavigationProperty Name="Abonnements" Relationship="Self.FK__Abonnemen__idCli__2B3F6F97" FromRole="Client" ToRole="Abonnement" />
+  </EntityType>
+  <EntityType Name="Trajet">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="aller" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="retour" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="idBus" Type="Int32" />
+    <NavigationProperty Name="Abonnements" Relationship="Self.FK__Abonnemen__idTra__2C3393D0" FromRole="Trajet" ToRole="Abonnement" />
+    <NavigationProperty Name="Bus" Relationship="Self.FK__Trajet__idBus__286302EC" FromRole="Trajet" ToRole="Bus" />
+  </EntityType>
+  <Association Name="FK__Abonnemen__idCli__2B3F6F97">
+    <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+    <End Role="Abonnement" Type="Self.Abonnement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Abonnement">
+        <PropertyRef Name="idClient" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Abonnemen__idTra__2C3393D0">
+    <End Role="Trajet" Type="Self.Trajet" Multiplicity="0..1" />
+    <End Role="Abonnement" Type="Self.Abonnement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Trajet">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Abonnement">
+        <PropertyRef Name="idTrajet" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Trajet__idBus__286302EC">
+    <End Role="Bus" Type="Self.Bus" Multiplicity="0..1" />
+    <End Role="Trajet" Type="Self.Trajet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bus">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Trajet">
+        <PropertyRef Name="idBus" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MiniPrj_NavetteEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Abonnements" EntityType="Self.Abonnement" />
+    <EntitySet Name="Buses" EntityType="Self.Bus" />
+    <EntitySet Name="Clients" EntityType="Self.Client" />
+    <EntitySet Name="Trajets" EntityType="Self.Trajet" />
+    <AssociationSet Name="FK__Abonnemen__idCli__2B3F6F97" Association="Self.FK__Abonnemen__idCli__2B3F6F97">
+      <End Role="Client" EntitySet="Clients" />
+      <End Role="Abonnement" EntitySet="Abonnements" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Abonnemen__idTra__2C3393D0" Association="Self.FK__Abonnemen__idTra__2C3393D0">
+      <End Role="Trajet" EntitySet="Trajets" />
+      <End Role="Abonnement" EntitySet="Abonnements" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Trajet__idBus__286302EC" Association="Self.FK__Trajet__idBus__286302EC">
+      <End Role="Bus" EntitySet="Buses" />
+      <End Role="Trajet" EntitySet="Trajets" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

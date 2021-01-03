@@ -1,0 +1,50 @@
+﻿@model MiniPrj_1.Models.Bus
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Bus</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.typeDeVehicule)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.typeDeVehicule)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.description_)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.description_)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Societe.RaisonSocial)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Societe.RaisonSocial)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Trajet.aller)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Trajet.aller)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
